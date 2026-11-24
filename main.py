@@ -16,11 +16,16 @@ import os
 TITLE = "Chief Apology Officer for Self-Checkout Machines"
 
 
-def main() -> None:
-    if not 1 <= len(TITLE) <= 60:
-        raise ValueError(f"title is {len(TITLE)} characters, must be 1-60")
-    if "\n" in TITLE or not TITLE.strip():
+def validate_title(title: str) -> None:
+    """Enforce the competition gates: 1-60 characters, one non-blank line."""
+    if not 1 <= len(title) <= 60:
+        raise ValueError(f"title is {len(title)} characters, must be 1-60")
+    if "\n" in title or not title.strip():
         raise ValueError("title must be a single non-blank line")
+
+
+def main() -> None:
+    validate_title(TITLE)
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     os.makedirs(out_dir, exist_ok=True)
     path = os.path.join(out_dir, "entry.txt")
